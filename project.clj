@@ -12,4 +12,12 @@
                  [org.lightningj/lightningj "0.4.2-Beta-2"]
 
                  [com.athaydes.protobuf/protobuf-tcp-rpc "0.2.1"]
+
+                 [com.taoensso/faraday "1.9.0"]
+                 [kemurisense/twijio "0.1.1"]
+                 [jstrutz/hashids "1.0.1"]
+                 [clj-time "0.14.4"]
+                 [danlentz/clj-uuid "0.1.7"]
                  ])
+
+

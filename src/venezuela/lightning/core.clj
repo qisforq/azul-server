@@ -1,6 +1,7 @@
 (ns venezuela.lightning.core
   (:import
    [java.io File]
+   [java.util Iterator]
    [org.lightningj.lnd.wrapper SynchronousLndAPI]
    [org.lightningj.lnd.wrapper.message OpenChannelRequest]
            ))
@@ -37,7 +38,7 @@
                                                  (.setSatPerByte 0))
 
         ;; Perform the call using alternative 1
-        ^Iterator<OpenStatusUpdate> result (.openChannel sync-api API openChannelRequest)
+        ^Iterator result (.openChannel sync-api openChannelRequest)
 
         ;; This call will wait for a the channel has opened, which means confirmation block must
         ;; generated in btc. If simnet is used you can manually generate blocks with

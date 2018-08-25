@@ -3,6 +3,7 @@
   :url "http://example.com/FIXME"
   :source-paths      ["src/clj"]
   :java-source-paths ["src/java"]
+  :main venezuela.core
   :dependencies [[org.clojure/clojure "1.8.0"]
 
                  [com.google.protobuf/protobuf-java "3.6.1"]

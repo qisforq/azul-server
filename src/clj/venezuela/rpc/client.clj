@@ -1,4 +1,4 @@
-(ns venezuela.client
+(ns venezuela.rpc.client
   (:import
    [com.athaydes.protobuf.tcp.api RemoteServices]
    [venezuela.rpc HelloService]
@@ -10,5 +10,9 @@
                                     HelloService
                                     "localhost"
                                     8081)]
-    (println (-> helloService .sayHello "Joe"))
-    (println (-> helloService .sayHelloAgain "Joe"))))
+    (println (-> helloService (.sayHello "David")))
+    (println (-> helloService (.sayHelloAgain "DK")))))
+
+(hello-world)
+
+

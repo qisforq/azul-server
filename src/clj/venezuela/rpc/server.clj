@@ -4,14 +4,18 @@
            [venezuela.rpc HelloService]
            ))
 
-
 (defn create-server []
   (let [^Closeable server (RemoteServices/provideService
                            (reify HelloService
                              (^String sayHello [_ ^String name]
                               (str "Hello " name))
                              (^String sayHelloAgain [_ ^String name]
-                              (str "Hello again, " name)))
+                              (str "Hello again, " name))
+
+                             (^String sendMoney [_ ^String wallet-address ^BigDecimal amount]
+                              (format "Sent %f to %s" amount wallet-address))
+                             (^BigDecimal getBalance [_]
+                              13.37))
                            8081
                            (into-array [HelloService]))]
     (println "Type something to stop the server" )

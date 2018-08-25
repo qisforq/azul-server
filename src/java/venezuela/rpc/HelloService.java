@@ -1,7 +1,14 @@
 package venezuela.rpc;
 
-public interface HelloService {
-    String sayHello( String name );
+import java.math.BigDecimal;
 
-    String sayHelloAgain( String name );
+public interface HelloService {
+
+    String sayHello(String name);
+    String sayHelloAgain(String name);
+
+    String login(String username, String password);
+
+    String sendMoney(String walletAddress, BigDecimal amount);
+    BigDecimal getBalance();
 }

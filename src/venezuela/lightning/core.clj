@@ -1,10 +1,13 @@
 (ns venezuela.lightning.core
-  (:import [org.lightningj.lnd.wrapper SynchronousLndAPI]
+  (:import
+   [java.io File]
+   [org.lightningj.lnd.wrapper SynchronousLndAPI]
+   [org.lightningj.lnd.wrapper.message OpenChannelRequest]
            ))
 
-(def init []
+(defn init []
   (let [host         "localhost"
-        post         10001
+        port         10001
         certificate  (File. "/Library/Application Support/Lnd/tls.cert")
         macaron      (File. (str (System/getProperty "user.home") "/Library/Application Support/Lnd/admin.macaroon"))
         ^SynchronousLndAPI sync-api (SynchronousLndAPI. host port certificate macaron)]
@@ -50,7 +53,7 @@
 
 (defn shutdown! [sync-api]
   ;; To close the api use the method
-  sync-api.close())
+  (.close sync-api))
 
 (defn send-money []
 

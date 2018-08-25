@@ -14,7 +14,7 @@
 
                              (^String sendMoney [_ ^String wallet-address ^BigDecimal amount]
                               (format "Sent %f to %s" amount wallet-address))
-                             (^BigDecimal getBalance [_]
+                             (getBalance [_]
                               13.37))
                            8081
                            (into-array [HelloService]))]

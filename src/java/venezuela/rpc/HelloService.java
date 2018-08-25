@@ -10,5 +10,8 @@ public interface HelloService {
     String login(String username, String password);
 
     String sendMoney(String walletAddress, BigDecimal amount);
-    BigDecimal getBalance();
+    double getBalance();
+
+    // List<Payment> listPayments();
+    // List<Invoice> listInvoices();
 }

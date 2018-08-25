@@ -1,8 +1,6 @@
 (defproject venezuela "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+  :description "Server implementation for Pale Blue Foundation's Bitcoin wallet"
   :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
 
                  [org.bitcoinj/bitcoinj-core "0.14.7"]

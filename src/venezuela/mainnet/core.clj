@@ -1,31 +1,23 @@
 (ns venezuela.mainnet.core
-  (:import
-   [java.io File]
-            [org.bitcoinj.kits WalletAppKit]
-            [com.google.common.util.concurrent
-             Futures
-             FutureCallback
-             ]
-            [org.bitcoinj.wallet.listeners WalletCoinsReceivedEventListener]
-
-            [org.bitcoinj.wallet
-             Wallet
-             Wallet$SendResult
-             ]
-            [org.bitcoinj.core
-             Coin
-             ECKey
-             NetworkParameters
-             Transaction
-             TransactionConfidence
-             ]
-            [org.bitcoinj.params
-             RegTestParams
-             MainNetParams
-             TestNet3Params
-             ]
-
-           ))
+  (:import [com.google.common.util.concurrent
+            Futures
+            FutureCallback]
+           [java.io File]
+           [org.bitcoinj.kits WalletAppKit]
+           [org.bitcoinj.wallet.listeners WalletCoinsReceivedEventListener]
+           [org.bitcoinj.wallet
+            Wallet
+            Wallet$SendResult]
+           [org.bitcoinj.core
+            Coin
+            ECKey
+            NetworkParameters
+            Transaction
+            TransactionConfidence]
+           [org.bitcoinj.params
+            RegTestParams
+            MainNetParams
+            TestNet3Params]))
 
 (defn init []
   (let [network "testnet"
@@ -55,7 +47,9 @@
     (.startAsync kit)
     (.awaitRunning kit)))
 
-(defn listen-to-transactions [kit]
+(defn listen-to-transactions
+  "Spins up a listener for coins received on this wallet"
+  [kit]
   (-> kit
       .wallet
       (.addCoinsReceivedEventListener

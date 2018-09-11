@@ -1,0 +1,3 @@
+[submodule "azul-common"]
+	path = azul-common
+	url = git@gitlab.com:palebluefoundation/azul-common.git

@@ -4,6 +4,7 @@
   :source-paths      ["src/clj"]
   :java-source-paths ["src/java"]
   :main venezuela.core
+  :plugins [[migratus-lein "0.5.3"]]
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [clj-time "0.14.4"]
 
@@ -23,6 +24,8 @@
                  [kemurisense/twijio "0.1.1"]
                  [com.google.gcm/gcm-server "1.0.0"]
 
-                 ])
+                 ;; DB Migrations
+                 [org.postgresql/postgresql "9.4-1201-jdbc41"]
+                 [migratus "1.0.1"]])
 
 

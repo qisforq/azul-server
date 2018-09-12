@@ -8,7 +8,7 @@
 
 (comment
   ;; run the following to run all migrations
-  (migratus/migrate config)
+  (migratus/migrate config) 
 
   ;; each rollback just goes 1 migration backwards, executed multiple times to
   ;; return to 0

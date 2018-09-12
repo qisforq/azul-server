@@ -12,7 +12,7 @@
 
                  ;; GRPC
                  [io.grpc/grpc-core "1.4.0"]
-                 [io.grpc/grpc-netty "1.4.0" :exclusions [io.grpc/grpc-core io.netty/netty-codec-http2]]
+                 [io.grpc/grpc-netty "1.4.0"]
                  [io.grpc/grpc-protobuf "1.4.0"]
                  [io.grpc/grpc-stub "1.4.0"]
 
@@ -35,7 +35,9 @@
                  [integrant "0.6.3"]
 
                  ;; Logging
-                 [com.taoensso/timbre "4.10.0"]])
+                 [com.taoensso/timbre "4.10.0"]]
 
-
-
+  :profiles {:dev
+             {:main user
+              :source-paths ["src/clj" "dev"]
+              :dependencies [[org.clojure/tools.namespace "0.3.0-alpha4"]]}})

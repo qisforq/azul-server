@@ -37,7 +37,17 @@
                  ;; Logging
                  [com.taoensso/timbre "4.10.0"]]
 
-  :profiles {:dev
-             {:main user
-              :source-paths ["src/clj" "dev"]
-              :dependencies [[org.clojure/tools.namespace "0.3.0-alpha4"]]}})
+  :plugins [[migratus-lein "0.6.0"]]
+
+  :migratus
+  {:store :database
+   :migration-dir "migrations"
+   :db
+   {:connection-uri
+    "jdbc:postgresql://localhost/azuldb_dev?user=azul&password="}}
+  
+  :profiles
+   {:dev
+   {:main user
+    :source-paths ["src/clj" "dev"]
+    :dependencies [[org.clojure/tools.namespace "0.3.0-alpha4"]]}})

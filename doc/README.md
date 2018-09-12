@@ -32,11 +32,12 @@ Once that works, run migrations:
 
 Open the lein repl:
 
-	lein migratus migrate
+	lein migratus
 
-Make sure the user table exists:
+Navigate to the persistence layer namespace:
 
-	 	lein repl
+    (require 'venezuela.db.persistence)
+	(in-ns 'venezuela.db.persistence)
 
 Look, no users yet:
 
@@ -47,7 +48,7 @@ Create the test user:
 
 	(insert-user-create db {:username "fenton travers!!!"})
 	> 1
-	> 
+ 
 List the users to make sure new user exists:
 
 	(users-all db)

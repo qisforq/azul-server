@@ -1,20 +1,37 @@
 (ns venezuela.rpc.client
-  (:import
-   [com.athaydes.protobuf.tcp.api RemoteServices]
-   [venezuela.rpc HelloService]
+  (:import [foundation.paleblue.azul.proto
+            HelloReply
+            HelloRequest
+            AzulGrpc]
+           [io.grpc ManagedChannelBuilder]))
 
-   ))
 
-(def my-service (RemoteServices/createClient
+
+(defn make-client [port]
+  (AzulGrpc/newBlockingStub
+   (-> (io.grpc.ManagedChannelBuilder/forAddress "localhost" port)
+       (.usePlaintext true)
+       .build)))
+
+
+(defn say-hello
+  [name]
+  (-> (.sayHello (make-client 5001
+                 (-> (HelloRequest/newBuilder)
+                     (.setName name)
+                     .build))
+      .getMessage))
+
+#_(def my-service (RemoteServices/createClient
                  HelloService
                  "localhost"
                  8081))
 
 
-(defn get-balance []
+#_(defn get-balance []
   (.getBalance my-service))
 
-(defn hello-world []
+#_(defn hello-world []
   (let [^HelloService helloService (RemoteServices/createClient
                                     HelloService
                                     "localhost"
@@ -22,6 +39,6 @@
     (println (-> helloService (.sayHello "David")))
     (println (-> helloService (.sayHelloAgain "DK")))))
 
-(hello-world)
+#_(hello-world)
 
 

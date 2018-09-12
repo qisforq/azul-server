@@ -1,45 +1,35 @@
 (ns venezuela.rpc.server
-  (:import [com.athaydes.protobuf.tcp.api RemoteServices]
-           [java.io Closeable]
-           [venezuela.rpc HelloService]
-           ))
-
-(defn create-server []
-  (let [^Closeable server (RemoteServices/provideService
-                           (reify HelloService
-                             (^String sayHello [_ ^String name]
-                              (str "Hello " name))
-                             (^String sayHelloAgain [_ ^String name]
-                              (str "Hello again, " name))
-
-                             (^String sendMoney [_ ^String wallet-address ^BigDecimal amount]
-                              (format "Sent %f to %s" amount wallet-address))
-                             (getBalance [_]
-                              13.37))
-                           8081
-                           (into-array [HelloService]))]
-    (println "Type something to stop the server" )
-    (read-line)
-    (.close server)))
-
-;;(create-server)
+  (:import [foundation.paleblue.azul.proto HelloReply HelloRequest]
+           io.grpc.stub.StreamObserver
+           [io.grpc Server ServerBuilder])
+  (:require [integrant.core :as ig]
+            [taoensso.timbre :as log]))
+  ;; #_(:import [com.athaydes.protobuf.tcp.api RemoteServices]
+  ;;          [java.io Closeable]
+  ;;          [venezuela.rpc HelloService]))
 
 
-;;(use 'clojure.reflect)
+(defn make-service
+  []
+  (proxy [foundation.paleblue.azul.proto.AzulGrpc$AzulImplBase] []
+    (sayHello [^HelloRequest request
+               ^StreamObserver responseObserver]
+      (log/info "sayHello called with request: " request)
+      (let [name (.getName request)
+            response (-> (HelloReply/newBuilder)
+                         (.setMessage (str "Hello " name)))]
+        (.onNext responseObserver (.build response))
+        (.onCompleted responseObserver)))))
 
-;;(->> (reflect RemoteServices)
-;;     :members
-;;     (filter #(= (symbol "provideService") (:name %)))
-;;
-;;     ;;first
-;;     ;;:name
-;;     ;;type
-;;     )
+
+(defn start-server [port]
+  (let [builder (ServerBuilder/forPort port)
+        service (make-service)
+        _ (.addService builder service)
+        server (.build builder)]
+    (.start server)
+    server))
 
 
-;;(type :hello)
-;;(type (symbol "hello"))
-;;(type "hello")
-;;
-;;(reflect HelloService)
-;;
+(defn stop-server [server]
+  (when server (.shutdown server)))

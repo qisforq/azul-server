@@ -26,18 +26,16 @@
                  [kemurisense/twijio "0.1.1"]
                  [com.google.gcm/gcm-server "1.0.0"]
 
-                 ;; DB Migrations
+                 ;; DB
                  [org.postgresql/postgresql "9.4-1201-jdbc41"]
                  [migratus "1.0.1"]
+                 [com.layerware/hugsql "0.4.9"]
 
                  ;; Services
                  [integrant "0.6.3"]
 
                  ;; Logging
-                 [com.taoensso/timbre "4.10.0"]
+                 [com.taoensso/timbre "4.10.0"]])
 
-                 ;; DB Migrations
-                 [org.postgresql/postgresql "9.4-1201-jdbc41"]
-                 [migratus "1.0.1"]])
 
 

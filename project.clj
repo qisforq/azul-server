@@ -45,9 +45,21 @@
    :db
    {:connection-uri
     "jdbc:postgresql://localhost/azuldb_dev?user=azul&password="}}
-  
+
   :profiles
    {:dev
-   {:main user
-    :source-paths ["src/clj" "dev"]
-    :dependencies [[org.clojure/tools.namespace "0.3.0-alpha4"]]}})
+    {:main user
+     :source-paths ["src/clj" "dev"]
+     :dependencies [[org.clojure/tools.namespace "0.3.0-alpha4"]
+                    [im.chit/vinyasa "0.4.7"]
+                    [pjstadig/humane-test-output "0.8.3"]]
+     :plugins [[com.jakemccrary/lein-test-refresh "0.23.0"]]
+     :injections [(require '[vinyasa.inject :as inject])
+                  (require 'pjstadig.humane-test-output)
+                  (pjstadig.humane-test-output/activate!)
+                  (inject/in ;; the default injected namespace is `.`
+
+                   [clojure.pprint pprint]
+                   [clojure.repl apropos dir dir-fn doc find-doc pst root-cause source]
+                   [clojure.tools.namespace.repl refresh refresh-all]
+                   [clojure.java.shell sh])]}})

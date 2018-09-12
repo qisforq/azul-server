@@ -1,12 +1,12 @@
 (ns venezuela.invite.db
-  (:require [hashids.core :as h]
+  #_(:require [hashids.core :as h]
             [taoensso.faraday :as far]
             [venezuela.env.rand :refer [uuid]]
             [venezuela.env.time :refer [now]]))
 
-(def hashids-opts {:salt "this is my salt"})
+#_(def hashids-opts {:salt "this is my salt"})
 
-(def client-opts
+#_(def client-opts
   {;;; For DDB Local just use some random strings here, otherwise include your
    ;;; production IAM keys:
    :access-key "<AWS_DYNAMODB_ACCESS_KEY>"
@@ -18,9 +18,9 @@
    ;; :endpoint "http://dynamodb.eu-west-1.amazonaws.com" ; For EU West 1 AWS region
    })
 
-(def inv-table :invitations)
+#_(def inv-table :invitations)
 
-(defn create-invitation! [context]
+#_(defn create-invitation! [context]
   (loop []
     (let [invite-code (h/encode hashids-opts (uuid))]
       (if (far/get-item client-opts inv-table {:invite-code invite-code})
@@ -34,11 +34,11 @@
           :originator (-> context :user :gov-id)
           :created-at (now)})))))
 
-(defn id-activated? [gov-id]
+#_(defn id-activated? [gov-id]
   ;; TODO: check the result returned
   (far/get-item client-opts inv-table {:gov-id gov-id}))
 
-(defn grant-incentive-and-activate-user! [context]
+#_(defn grant-incentive-and-activate-user! [context]
 
   ;; Question: how are we representing users?
 

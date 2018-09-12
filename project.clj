@@ -35,7 +35,12 @@
                  [integrant "0.6.3"]
 
                  ;; Logging
-                 [com.taoensso/timbre "4.10.0"]]
+                 [com.taoensso/timbre "4.10.0"]
+                 
+                 ;; Auth
+                 [buddy/buddy-hashers "1.3.0"]
+                 
+              ]
 
   :plugins [[migratus-lein "0.6.0"]]
 

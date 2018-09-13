@@ -36,10 +36,11 @@
 
                  ;; Logging
                  [com.taoensso/timbre "4.10.0"]
-                 
+                 [org.slf4j/slf4j-simple "1.7.25"]
+
                  ;; Auth
                  [buddy/buddy-hashers "1.3.0"]
-                 
+
               ]
 
   :plugins [[migratus-lein "0.6.0"]]

@@ -5,7 +5,7 @@
 
 (defn login [username password]
     (let [user (db/user-by-username db/db {:username username})]
-      (if (nil? user) 
+      (if (nil? user)
           {:success false :message "User doesn't exist"}
           (if (hashers/check (str password (:salt user)) (:hashed_password user))
              {:success true :session-token (str "123" (:id user))}
@@ -15,12 +15,10 @@
   "TODO: return session id instead of user id"
   (if (db/user-by-username db/db {:username username})
     {:success false :message "User already exists"}
-  
+
   (let [salt "123"
         salted-password  (str password salt)
         hashed-password (hashers/derive salted-password)
-        _ (println salted-password)
-        _ (println hashed-password)
         user-id (-> (db/create-user db/db {:username username 
                             :hashed_password hashed-password :salt salt})
                       first
@@ -28,4 +26,3 @@
         {:success true :session-token (str "123" user-id)}
     )
 ))
-

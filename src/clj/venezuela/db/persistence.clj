@@ -27,10 +27,9 @@
   (def accepted-invite-id
     (-> (create-accepted-invite db {:invite_id invite-id :user_id user-id}) first :id))
   (all-accepted-invites db)
-  (accepted-invite-by-id db {:id accepted-invite-id}) 
+  (accepted-invite-by-id db {:id accepted-invite-id})
 
   ;; get the SQL output by functions
   (hugsql/def-sqlvec-fns "venezuela/db/users.sql")
   (insert-user-create-sqlvec {:username "fenton travers!!!"})
   (users-all-sqlvec))
-

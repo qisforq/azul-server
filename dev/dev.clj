@@ -12,7 +12,11 @@
             ))
 
 (def config
-  {:rpc/server {:port 5001}})
+  {:rpc/server {:port 5001}
+   :migrations/config {:store :database
+                      :db {:connection-uri
+                            "jdbc:postgresql://localhost/azuldb_dev?user=azul&password="}}})
+
 
 ;; var to store running system
 (def system {})

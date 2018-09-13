@@ -59,3 +59,7 @@ List the users to make sure new user exists:
   (start!)
 
  Now the server should be running on port 5001
+
+ ### To create a migration
+
+ lein migratus create <name>

@@ -20,7 +20,7 @@
                  (-> (HelloRequest/newBuilder)
                      (.setName name)
                      .build))
-      .getMessage))
+      .getMessage)))
 
 #_(def my-service (RemoteServices/createClient
                  HelloService

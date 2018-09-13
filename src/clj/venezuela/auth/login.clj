@@ -7,7 +7,7 @@
 (defn login [username password]
     (let [user (db/user-by-username db/db {:username username})
           hashed-password (:hashed_password user)]
-      (if (nil? user) 
+      (if (nil? user)
           {:success false :message "User doesn't exist"}
           (if (hashers/check (str password (:salt user)) hashed-password)
              {:success true :session-token (sessions/create (:id user) hashed-password)}

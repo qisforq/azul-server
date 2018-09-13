@@ -19,6 +19,25 @@ where username = :username
 INSERT INTO users (username, hashed_password, salt, created_at)
 VALUES (:username, :hashed_password, :salt, current_timestamp) returning id
 
+-- SESSIONS ------------------------
+-- :name session-by-token :? :1
+-- :doc get session by id
+select * from sessions
+where token = :token 
+  and expired = false
+
+-- :name create-session :<!
+-- :doc insert new session
+INSERT INTO sessions (user_id, token)
+VALUES (:user_id, :token) returning token
+
+-- :name user-by-token :? :1
+-- :doc get session by id
+select * from users
+join sessions on sessions.user_id = users.id
+where token = :token and expired = false
+
+
 -- invite ------------------------
 -- :name all-invites :? :*
 -- :doc select all the invites

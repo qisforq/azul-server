@@ -12,10 +12,12 @@
             ))
 
 (def config
-  {:rpc/server {:port 5001}
-   :migrations/config {:store :database
-                      :db {:connection-uri
-                            "jdbc:postgresql://localhost/azuldb_dev?user=azul&password="}}})
+  {:migrations/config {:store :database
+                     :db {:connection-uri
+                           "jdbc:postgresql://localhost/azuldb_dev?user=azul&password="}}})
+
+(def integrant_config
+  {:rpc/server {:port 5001}})
 
 
 ;; var to store running system
@@ -23,8 +25,8 @@
 
 (defn start!
   []
-  (log/info "Starting dev system with config:" config)
-  (alter-var-root #'system (fn [_] (ig/init config)))
+  (log/info "Starting dev system with config:" integrant_config)
+  (alter-var-root #'system (fn [_] (ig/init integrant_config)))
   (log/info "Started dev system"))
 
 

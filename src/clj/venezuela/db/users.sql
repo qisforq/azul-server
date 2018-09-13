@@ -9,10 +9,15 @@ FROM users
 select * from users
 where id = :id
 
+-- :name user-by-username :? :1
+-- :doc Get user by username
+select * from users
+where username = :username
+
 -- :name create-user :<!
 -- :doc insert new user
-INSERT INTO users (username, created_at)
-VALUES (:username, current_timestamp) returning id
+INSERT INTO users (username, hashed_password, salt, created_at)
+VALUES (:username, :hashed_password, :salt, current_timestamp) returning id
 
 -- invite ------------------------
 -- :name all-invites :? :*

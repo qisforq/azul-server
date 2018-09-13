@@ -39,6 +39,7 @@
                  [org.slf4j/slf4j-simple "1.7.25"]
 
                  ;; Auth
+                 [buddy/buddy-sign "3.0.0"]
                  [buddy/buddy-hashers "1.3.0"]
 
               ]

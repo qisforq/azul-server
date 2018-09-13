@@ -2,27 +2,9 @@
 
 Server implementation for Pale Blue Foundation's Bitcoin wallet
 
-## Install
+## Setup
 
-```
-git submodule init
-git submodule update
-
-createuser azul
-createdb --owner=azul azuldb_dev
-
-lein migratus migrate
-```
-
-## Usage
-
-```
-gradle clean
-gradle generateProto
-
-lein repl
-> (venezuela.rpc.server/start-server 8080)
-```
+See doc/README.md
 
 ## License
 

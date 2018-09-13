@@ -21,7 +21,7 @@
 
 
 ;; var to store running system
-(def system {})
+(def system nil)
 
 (defn start!
   []
@@ -33,7 +33,8 @@
 (defn stop!
   []
   (log/info "Stopping system")
-  (alter-var-root #'system ig/halt!)
+  (if system
+    (alter-var-root #'system ig/halt!))
   (log/info "Stopped system"))
 
 

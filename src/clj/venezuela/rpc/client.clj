@@ -1,10 +1,8 @@
 (ns venezuela.rpc.client
-  (:import [foundation.paleblue.azul.proto
-            HelloReply
-            HelloRequest
-            AzulGrpc]
-           [io.grpc ManagedChannelBuilder]))
-
+  (:import [foundation.paleblue.azul.proto AzulGrpc]
+           [io.grpc ManagedChannelBuilder])
+  (:require [venezuela.rpc.convert :as convert]
+            [taoensso.timbre :as log]))
 
 
 (defn make-client [port]
@@ -14,31 +12,10 @@
        .build)))
 
 
-(defn say-hello
-  [name]
-  (-> (.sayHello (make-client 5001
-                 (-> (HelloRequest/newBuilder)
-                     (.setName name)
-                     .build))
-      .getMessage)))
-
-#_(def my-service (RemoteServices/createClient
-                 HelloService
-                 "localhost"
-                 8081))
-
-
-#_(defn get-balance []
-  (.getBalance my-service))
-
-#_(defn hello-world []
-  (let [^HelloService helloService (RemoteServices/createClient
-                                    HelloService
-                                    "localhost"
-                                    8081)]
-    (println (-> helloService (.sayHello "David")))
-    (println (-> helloService (.sayHelloAgain "DK")))))
-
-#_(hello-world)
-
-
+(defn login
+  [client username password]
+  (let [login-request (convert/map->LoginRequest {:username username
+                                                  :password password})
+        resp (.userLogin client login-request)
+        login-response (convert/LoginReply->map resp)]
+    login-response))

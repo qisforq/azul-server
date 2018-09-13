@@ -4,8 +4,7 @@ Server implementation for Pale Blue Foundation's Bitcoin wallet
 
 ## Usage
 
-FIXME
-
-## License
-
-Copyright © 2018 FIXME
+* `gradle clean`
+* `gradle generateProto`
+* `lein repl` 
+* `(venezuela.rpc.server/start-server 8080)`

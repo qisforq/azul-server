@@ -27,7 +27,8 @@
   []
   (log/info "Starting dev system with config:" integrant_config)
   (alter-var-root #'system (fn [_] (ig/init integrant_config)))
-  (log/info "Started dev system"))
+  (log/info "Started dev system")
+  system)
 
 
 (defn stop!
@@ -35,7 +36,8 @@
   (log/info "Stopping system")
   (if system
     (alter-var-root #'system ig/halt!))
-  (log/info "Stopped system"))
+  (log/info "Stopped system")
+  system)
 
 
 (defn restart!

@@ -1,7 +1,8 @@
 (ns venezuela.auth.login
   (:require [buddy.hashers :as hashers]
             [venezuela.db.persistence :as db]
-            [venezuela.auth.sessions :as sessions]))
+            [venezuela.auth.sessions :as sessions]
+            [java-time :as jt]))
 
 
 (defn login [username password]
@@ -17,7 +18,7 @@
   (if (db/user-by-username db/db {:username username})
     {:success false :message "User already exists"}
 
-  (let [salt "123"
+  (let [salt (str (hash (jt/local-time)))
         salted-password  (str password salt)
         hashed-password (hashers/derive salted-password)
         user-id (-> (db/create-user db/db {:username username 

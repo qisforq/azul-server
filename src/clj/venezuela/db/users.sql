@@ -1,3 +1,9 @@
+/*
+This file contains hugsql functions that wrap postgresql queries.
+See docs about hugsql sql files:
+https://www.hugsql.org/#sql-file
+*/
+
 -- USERS ------------------------
 -- :name all-users :? :*
 -- :doc select all the users with all the attributes
@@ -37,6 +43,11 @@ select * from users
 join sessions on sessions.user_id = users.id
 where token = :token and expired = false
 
+-- :name inactivate-session :! :n
+-- :doc inactivate session by token
+update sessions
+  set expired = true
+where token = :token
 
 -- invite ------------------------
 -- :name all-invites :? :*

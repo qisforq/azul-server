@@ -27,3 +27,6 @@
         {:success true :session-token (sessions/create user-id hashed-password)}
     )
 ))
+
+(defn logout [session-token]
+  (db/inactivate-session db/db {:token session-token}))

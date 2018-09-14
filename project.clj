@@ -24,7 +24,9 @@
 
                  ;; Push
                  [kemurisense/twijio "0.1.1"]
-                 [com.google.gcm/gcm-server "1.0.0"]
+                 [aleph "0.4.6"]
+                 ;; Resolves conflict between aleph and gRPC
+                 [io.netty/netty-handler-proxy "4.1.25.Final"]
 
                  ;; DB
                  [org.postgresql/postgresql "9.4-1201-jdbc41"]

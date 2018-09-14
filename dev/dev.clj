@@ -17,7 +17,7 @@
                            "jdbc:postgresql://localhost/azuldb_dev?user=azul&password="}}})
 
 (def integrant_config
-  {:rpc/server {:port 5001}})
+  {:rpc/server {:port 8080}})
 
 
 ;; var to store running system

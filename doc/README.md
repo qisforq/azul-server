@@ -5,7 +5,7 @@
 ### Code
 
 Navigate to the project's root.
-Make sure to sync the submodules: 
+Make sure to sync the submodules:
 
   git submodule update
   git submodule sync
@@ -46,19 +46,19 @@ Create the test user:
 
   (insert-user-create db {:username "fenton travers!!!"})
   > 1
- 
+
 List the users to make sure new user exists:
 
   (users-all db)
   ({:id 1, :username "fenton travers!!!", :created_at #inst "2018-09-12T18:20:23.794901000-00:00"})
-    
+
  ### Start server
 
   lein repl
   (dev)
   (start!)
 
- Now the server should be running on port 5001
+ Now the server should be running on port 8080
 
  ### To create a migration
 

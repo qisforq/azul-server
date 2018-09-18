@@ -1,12 +1,11 @@
-(ns venezuela.auth.login-test
+(ns venezuela.auth.registration-test
   (:require [clojure.test :refer [deftest testing is]]
             [venezuela.db.persistence :as db]
-            [venezuela.auth.login :as login]
-            ))
+            [venezuela.auth.registration :as registration]
+            [venezuela.auth.login :as login]))
 
-
-(deftest login-test
+(deftest registration-test
   (testing "create"
     (testing "Can login to newly created user"
-      (login/create "TestUser" "TestPass")
+      (registration/register "TestUser" "TestPass")
       (is (:success (login/login "TestUser" "TestPass"))))))

@@ -2,7 +2,7 @@
   (:import [foundation.paleblue.azul.proto
             LoginReply
             LoginRequest
-            LoginReply$LoginReplyStatus])
+            LoginReply$Status])
   (:require [taoensso.timbre :as log]))
 
 (defn map->LoginRequest
@@ -26,16 +26,16 @@
   (let [reply (LoginReply/newBuilder)
         reply (if success
                 (doto reply
-                  (.setStatus LoginReply$LoginReplyStatus/LOGIN_SUCCESS)
+                  (.setStatus LoginReply$Status/SUCCESS)
                   (.setSessionToken session-token))
                 (doto reply
-                  (.setStatus LoginReply$LoginReplyStatus/LOGIN_FAILURE)
+                  (.setStatus LoginReply$Status/FAILURE)
                   (.setMessage message)))]
     (.build reply)))
 
 (defn LoginReply->map
   [^LoginReply lr]
-  (if (= LoginReply$LoginReplyStatus/LOGIN_SUCCESS (.getStatus lr))
+  (if (= LoginReply$Status/SUCCESS (.getStatus lr))
     {:success true
      :session-token (.getSessionToken lr)}
     {:success false

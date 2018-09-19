@@ -1,8 +1,6 @@
 (ns venezuela.rpc.server
   (:import [foundation.paleblue.azul.proto
-            LoginRequest
-            LoginReply
-            LoginReply$LoginReplyStatus]
+            LoginRequest]
            io.grpc.stub.StreamObserver
            [io.grpc Server ServerBuilder])
   (:require [integrant.core :as ig]

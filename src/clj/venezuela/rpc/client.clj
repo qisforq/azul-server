@@ -14,8 +14,14 @@
 
 (defn login
   [client username password]
-  (let [login-request (convert/map->LoginRequest {:username username
-                                                  :password password})
-        resp (.userLogin client login-request)
-        login-response (convert/LoginReply->map resp)]
-    login-response))
+  (let [request (convert/map->LoginRequest {:username username
+                                            :password password})
+        response (.userLogin client request)]
+    (convert/LoginReply->map response)))
+
+(defn register
+  [client username password]
+  (let [request (convert/map->RegisterRequest {:username username
+                                               :password password})
+        response (.register client request)]
+    (convert/RegisterReply->map response)))

@@ -2,16 +2,19 @@
   (:import [foundation.paleblue.azul.proto
             LoginReply
             LoginRequest
-            LoginReply$Status])
+            LoginReply$Status
+            RegisterRequest
+            RegisterReply
+            RegisterReply$Status])
   (:require [taoensso.timbre :as log]))
 
 (defn map->LoginRequest
   ^LoginRequest
   [{:keys [username password]}]
   (-> (LoginRequest/newBuilder)
-      (.setUsername username)
-      (.setPassword password)
-      .build))
+    (.setUsername username)
+    (.setPassword password)
+    .build))
 
 
 (defn LoginRequest->map
@@ -36,6 +39,41 @@
 (defn LoginReply->map
   [^LoginReply lr]
   (if (= LoginReply$Status/SUCCESS (.getStatus lr))
+    {:success true
+     :session-token (.getSessionToken lr)}
+    {:success false
+     :message (.getMessage lr)}))
+
+
+(defn map->RegisterRequest
+  ^RegisterRequest
+  [{:keys [username password]}]
+  (-> (RegisterRequest/newBuilder)
+    (.setUsername username)
+    (.setPassword password)
+    .build))
+
+(defn RegisterRequest->map
+  [^RegisterRequest lr]
+  {:username (.getUsername lr)
+   :password (.getPassword lr)})
+
+(defn map->RegisterReply
+  ^RegisterReply
+  [{:keys [success session-token message] :as m}]
+  (let [reply (RegisterReply/newBuilder)
+        reply (if success
+                (doto reply
+                  (.setStatus RegisterReply$Status/SUCCESS)
+                  (.setSessionToken session-token))
+                (doto reply
+                  (.setStatus RegisterReply$Status/FAILURE)
+                  (.setMessage message)))]
+    (.build reply)))
+
+(defn RegisterReply->map
+  [^RegisterReply lr]
+  (if (= RegisterReply$Status/SUCCESS (.getStatus lr))
     {:success true
      :session-token (.getSessionToken lr)}
     {:success false

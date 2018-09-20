@@ -5,7 +5,9 @@
             LoginReply$Status
             RegisterRequest
             RegisterReply
-            RegisterReply$Status])
+            RegisterReply$Status
+            CheckBalanceRequest
+            CheckBalanceReply])
   (:require [taoensso.timbre :as log]))
 
 (defn map->LoginRequest
@@ -78,3 +80,27 @@
      :session-token (.getSessionToken lr)}
     {:success false
      :message (.getMessage lr)}))
+
+(defn map->CheckBalanceRequest
+  ^CheckBalanceRequest
+  [{:keys [session-token]}]
+  (-> (CheckBalanceRequest/newBuilder)
+    (.setSessionToken session-token)
+    .build))
+
+(defn CheckBalanceRequest->map
+  [^CheckBalanceRequest request]
+  {:session-token (.getSessionToken request)})
+
+(defn map->CheckBalanceReply
+  ^CheckBalanceReply
+  [{:keys [satoshis]}]
+  (let [reply (CheckBalanceReply/newBuilder)
+       reply (doto reply
+               (.setSatoshis satoshis))]
+   (.build reply)))
+
+(defn CheckBalanceReply->map
+  [^CheckBalanceReply reply]
+  {:satoshis (.getSatoshis reply)
+   :updated-at (.getUpdatedAt reply)})

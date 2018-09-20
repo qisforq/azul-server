@@ -25,3 +25,9 @@
                                                :password password})
         response (.register client request)]
     (convert/RegisterReply->map response)))
+
+(defn balance
+  [client session-token]
+  (let [request (convert/map->CheckBalanceRequest {:session-token session-token})
+        response (.checkBalance client request)]
+    (convert/CheckBalanceReply->map response)))

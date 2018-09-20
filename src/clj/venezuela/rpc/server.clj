@@ -1,14 +1,16 @@
 (ns venezuela.rpc.server
   (:import [foundation.paleblue.azul.proto
             LoginRequest
-            RegisterRequest]
+            RegisterRequest
+            CheckBalanceRequest]
            io.grpc.stub.StreamObserver
            [io.grpc Server ServerBuilder])
   (:require [integrant.core :as ig]
             [taoensso.timbre :as log]
             [venezuela.rpc.convert :as convert]
             [venezuela.auth.registration :as registration]
-            [venezuela.auth.login :as login]))
+            [venezuela.auth.login :as login]
+            [venezuela.wallet :as wallet]))
 
 (defn make-service
   []
@@ -23,6 +25,12 @@
                ^StreamObserver responseObserver]
       (let [{:keys [username password]} (convert/RegisterRequest->map request)
             response (convert/map->RegisterReply (registration/register username password))]
+        (.onNext responseObserver response)
+        (.onCompleted responseObserver)))
+    (checkBalance [^CheckBalanceRequest request
+                   ^StreamObserver responseObserver]
+      (let [{:keys [session-token]} (convert/CheckBalanceRequest->map request)
+            response (convert/map->CheckBalanceReply (wallet/balance session-token))]
         (.onNext responseObserver response)
         (.onCompleted responseObserver)))))
 

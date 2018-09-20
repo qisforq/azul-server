@@ -61,6 +61,15 @@
                   response (client/login client username password)]
               (comment "FIXME: this will not work until the test database is cleared with each run"
                 (is (= {:success false :message "User doesn't exist"} response)))
-              (is (not (:success response)))))))
+              (is (not (:success response))))))
+
+        (testing "balance"
+          (testing "when user has no transactions it's zero"
+            (let [username "user"
+                  password "12345"
+                  registration (client/register client username password)
+                  login (client/login client username password)
+                  balance (client/balance client (:session-token login))]
+              (is (= 0 (:satoshis balance)))))))
       (finally
         (server/stop-server server)))))
